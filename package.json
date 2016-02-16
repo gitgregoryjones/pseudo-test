@@ -1,9 +1,19 @@
 {
   "name": "pseudo-test",
   "description": "testtool for rest",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Gregory Jones",
   "contributors": [],
+"keywords": [
+    "mocha",
+    "test",
+    "bdd",
+    "tdd",
+    "rest",
+    "pseudo",
+    "pseudo-test",
+    "tap"
+  ]
   "dependencies": {
     "caching": "^0.1.4",
     "chalk": "^1.1.1",
