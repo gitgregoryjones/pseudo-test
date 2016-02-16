@@ -1,0 +1,33 @@
+{
+  "name": "pseudo-test",
+  "description": "testtool for rest",
+  "version": "1.0.0",
+  "author": "Gregory Jones",
+  "contributors": [],
+  "dependencies": {
+    "caching": "^0.1.4",
+    "chalk": "^1.1.1",
+    "config": "~1.12.0",
+    "email-validator": "~1.0.1",
+    "find-parent-dir": "^0.3.0",
+    "moment": "2.8.2",
+    "node-sync": "^0.1.0",
+    "parentpath": "^0.2.0",
+    "request": "^2.69.0",
+    "sync": "^0.2.5",
+    "underscore": "^1.6.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "bin": {
+    "ptest": "./bin/pseudo",
+    "pseudo": "./bin/pseudo"
+  },
+  "engines": {
+    "node": "0.10.36"
+  },
+  "scripts": {
+    "start": "app.js"
+  }
+}

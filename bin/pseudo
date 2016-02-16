@@ -1,0 +1,2 @@
+#Run all tests
+node node_modules/pseudo-test/app.js
