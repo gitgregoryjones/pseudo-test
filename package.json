@@ -13,7 +13,7 @@
     "pseudo",
     "pseudo-test",
     "tap"
-  ]
+  ],
   "dependencies": {
     "caching": "^0.1.4",
     "chalk": "^1.1.1",
