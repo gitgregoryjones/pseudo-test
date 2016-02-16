@@ -1,7 +1,7 @@
 {
   "name": "pseudo-test",
   "description": "testtool for rest",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Gregory Jones",
   "contributors": [],
   "dependencies": {

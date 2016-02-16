@@ -89,7 +89,7 @@ POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":"JP", "la
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">
   "scripts": {
-    "test": "./ptest.sh"
+    "test": "./node_modules/.bin/ptest"
   }
 </code></pre></div>
 
