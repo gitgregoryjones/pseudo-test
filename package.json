@@ -1,7 +1,7 @@
 {
   "name": "pseudo-test",
   "description": "testtool for rest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Gregory Jones",
   "contributors": [],
   "dependencies": {
@@ -21,8 +21,8 @@
     "mocha": "*"
   },
   "bin": {
-    "ptest": "./bin/pseudo",
-    "pseudo": "./bin/pseudo"
+    "ptest": "./bin/ptest.sh",
+    "pseudo": "./bin/ptest.sh"
   },
   "engines": {
     "node": "0.10.36"
