@@ -64,7 +64,7 @@ it('should correctly update an existing account', function(done){
 
 POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":'JP', "lastName":'Berd'}
 
-TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014"}.equals(${_p.body},true) 
+	TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014"}.equals(${_p.body},true) 
 </code></pre></div>
 <h2 id="install">Pseudo Test Errors</h2>
 <p>Errors are simply stated and highlighted in red along with the offending line number</p>
@@ -170,7 +170,7 @@ POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":"JP", "la
 
   GET 200 http://mysite.com/version
 
-  TEST {name: "cn-go-api","version":"3.1.48"}.equals(${_p.body})
+  	TEST {name: "cn-go-api","version":"3.1.48"}.equals(${_p.body})
   .....
   
   npm test
@@ -225,7 +225,7 @@ token besides the default "$".  Use this method if needed. </p>
   
   GET 200 http://myservice/sort WITH BODY [3,4,6,1,2,5]
 
-  TEST <font color="yellow">_.difference</font>(sortedArray,${p.body}) == []
+  	TEST <font color="yellow">_.difference</font>(sortedArray,${p.body}) == []
 
 
 </code></pre></div>
