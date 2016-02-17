@@ -38,6 +38,15 @@ verbs = {
 
 Sync(function(){
 
+	
+
+	require('fs').mkdir("tests",function(err){
+		//silently fail if directory already exists
+		if(err && err.code != "EEXIST")
+			console.log(err)
+	});
+	
+
 	try {
 
 	testdir = pp.sync('node_modules');
