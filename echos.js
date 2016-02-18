@@ -1,11 +1,12 @@
 
 var Sync = require('sync');
 
-equals = require('./equals')
+
 
 var expressions = [
-{test:/^\s*TEST\s+(.*)$/,"label":"Testing User Expression"
+{test:/^\s*DEBUG\s+(.*)$/,"label":"Saving Result of User Expression"
 }]
+
 
 Sync(function(){
 
@@ -14,19 +15,13 @@ var result = ""
 
 module.exports.processLine = function(line){
 
-	isEquals = /\s*TEST\s*(.+)\s+(EQUALS|IS LIKE)\s+(.+)?$/g.exec(line);
-
-	if(isEquals){
-
-		return equals.processLine(line);
-	}
-
 	expressions.every(function(expression){
 
 		var group = null;
 
 		group = line.match(expression.test)
 
+	
 		if(group != null && group[1]){
 
 			group[1] = group[1].replace(variableSubstitution, function(curly,index,original){
@@ -44,6 +39,8 @@ module.exports.processLine = function(line){
 					return userValue
 
 				} else if(global._.isObject(userValue)){
+				
+					//group[1] = "new Object("+ original.replace(".deepEquals", ").deepEquals");
 					//console.log("Object original is " + original);
 					//console.log("The following object is used for substitution")
 					//console.log(eval("global."+userSpecifiedVar) );
@@ -57,27 +54,14 @@ module.exports.processLine = function(line){
 				
 			});
 
-			//Hack because JS does not like anon objects
-			/*if(group[1].indexOf("equals") > -1)
-				group[1] = "new Object("+ group[1].replace(".equals", ").equals");
-			*/
 
 			//console.log("Running " + line.trim());
-			console.log("Evaluating " + group[1] )
-
-			var coke = false;
 			
-			coke = eval(group[1]);
+			//console.log("Saving " + group[1] )
+			
+			console.log(eval(group[1]));
 		
-			//console.log("Coke is " + coke)
-
-			if(coke == true){
 			
-			} else {
-				
-				throw new Error("Test failed the following condition ==> ["  + group[1] + "] is not true")
-				
-			}
 		}
 
 		

@@ -60,6 +60,11 @@ module.exports.processLine = function(line,linenumber){
 
 
 			console.log("Calling URL " + group[3])
+
+			curlKey = group[3].replace("http://","http_").replace(/\./g,"_").replace(/\//g,"_").replace(/-/g,"_")
+			console.log(curlKey)
+
+			
 			//console.log("Group[4] " + group[4])
 			//console.log("Headers " + global.cmds.headers)
 			console.log("Expecting a user specified response statusCode ["+group[2] + "]")
@@ -89,6 +94,8 @@ module.exports.processLine = function(line,linenumber){
 						
 						global._p.body = (result[0].body);
 						global.pseudo = global._p;	
+						global.RESPONSE = global._p;
+						global[curlKey] = global.RESPONSE;
 						//console.log(result[0].body)
 
 					} else {

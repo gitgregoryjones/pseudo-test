@@ -2,7 +2,7 @@ var Sync = require('sync');
 var pp = require('parentpath');
 
 var path = require('path');
-require('./utils')
+utils = require('./utils')
 
 global.chalk = require('chalk');
 
@@ -27,6 +27,7 @@ setSpecialChar(_DEFAULT_);
 
 verbs = {
 	"SETVAR" : "savevariablestoglobalscope",
+	"DEBUG" : "echos",
 	"SET":"setheader",
 	"TEST":"evaluateuserexpression"
 	,"GET":"geturl",
@@ -62,7 +63,7 @@ Sync(function(){
 
 	var files = require('fs').readdir.sync(null,testdir);
 
-	console.log("I see " + files.length + " files");
+	console.log("I see " + files.length + " test(s)");
 
 	files.every(function(file){
 
