@@ -1,32 +1,3 @@
-# pseudo-test
-TEST REST ROUTES USING PLAIN ENGLISH
-
-
-
-<html lang="en">
-
-  <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  <title>Getting started</title>
-  <meta name="description" content="Release the docs!">
-
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-
-  <link rel="canonical" href="http://sassdoc.com/getting-started/">
-  <link rel="stylesheet" href="main.css">
-
-  <link href="/favicon.png" rel="shortcut icon">
-</head>
-
-
-  <body>
-    <header class="header" role="navigation">
-    <div class="container">
-
-       
 <h2 id="about">About Pseudo Test</h2>
 <p>Pseudo Test uses <a target="_top" href="https://en.wikipedia.org/wiki/Pseudocode">pseudo syntax</a> (plain English) to test your API routes.  So, instead of writing this to test your code..</p>
 <h2 id="install">Stop Doing This</h2> 
@@ -64,7 +35,7 @@ it('should correctly update an existing account', function(done){
 
 POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":'JP', "lastName":'Berd'}
 
-	TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014"}.equals(${_p.body},true) 
+TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014"}.equals(${_p.body},true) 
 </code></pre></div>
 <h2 id="install">Pseudo Test Errors</h2>
 <p>Errors are simply stated and highlighted in red along with the offending line number</p>
@@ -78,7 +49,7 @@ POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":"JP", "la
 <font color="red">Error: POST Test failed the following condition ==> return Code [302] expected 200</font>
 </code></pre></div>
 
-        
+          <h2 id="install">I'm Sold :)  How Can I get Started?</h2>
 
 <p>Getting started with Pseudo Test could not be any easier.</p>
 
@@ -86,6 +57,14 @@ POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":"JP", "la
 
 
 <p>Edit your package.json and add the following snippet</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">
+  "scripts": {
+    "test": "./ptest.sh"
+  }
+</code></pre></div>
+
+<p>Save ptest.sh to your local</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">
   "scripts": {
@@ -170,7 +149,7 @@ POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":"JP", "la
 
   GET 200 http://mysite.com/version
 
-  	TEST {name: "cn-go-api","version":"3.1.48"}.equals(${_p.body})
+  TEST {name: "cn-go-api","version":"3.1.48"}.equals(${_p.body})
   .....
   
   npm test
@@ -225,7 +204,7 @@ token besides the default "$".  Use this method if needed. </p>
   
   GET 200 http://myservice/sort WITH BODY [3,4,6,1,2,5]
 
-  	TEST <font color="yellow">_.difference</font>(sortedArray,${p.body}) == []
+  TEST <font color="yellow">_.difference</font>(sortedArray,${p.body}) == []
 
 
 </code></pre></div>
@@ -318,17 +297,7 @@ GET 200 ${hostname}/featuredepisode/${_p.body[3].seriestitleid}
 
 GET 404 ${hostname}/badpage
 </code></pre></div>
-       
-  <div class="footer__content">
-    <div class="container">
+    
       <p>&copy; Made with love by <a href="#">Mr. Jones</a>.</p>
-    </div>
-  </div>
-</footer>
-
-
-  </body>
-
-</html>
-
+ 
 
