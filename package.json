@@ -1,10 +1,10 @@
 {
   "name": "pseudo-test",
   "description": "testtool for rest",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Gregory Jones",
   "contributors": [],
-"keywords": [
+  "keywords": [
     "mocha",
     "test",
     "bdd",
@@ -25,7 +25,8 @@
     "parentpath": "^0.2.0",
     "request": "^2.69.0",
     "sync": "^0.2.5",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "xml2js": "^0.4.16"
   },
   "devDependencies": {
     "mocha": "*"

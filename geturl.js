@@ -1,6 +1,7 @@
 
 var request = require("request");
 var Sync = require('sync');
+var xml2js = require('xml2js');
 
 
 
@@ -72,8 +73,7 @@ module.exports.processLine = function(line,linenumber){
 			var options ={
 				method:group[1],
 				uri:group[3],
-				headers:global._p.headers,
-				json:true
+				headers:global._p.headers
 			}
 
 			if(group[4] != undefined){
@@ -85,14 +85,39 @@ module.exports.processLine = function(line,linenumber){
 
 				
 					result = request.sync(null,options)
-					retCode = result[0].statusCode;
+
+					xml = result[0].headers['content-type']
+					
+					console.log("content-type is " + xml)
+
+					result = result[0];
+
+					var thebody = result.body;
+
+					if(xml.indexOf("xml")>-1){
+						//console.log("Found XML !!!!! " + thebody)
+						 xml2js.parseString(thebody,function(err,result){
+							thebody = result;
+						})
+						//console.log("HELLO !!!!!" + thebody)
+					} else {
+
+						console.log("JSON")
+						thebody = JSON.parse(thebody)
+						//console.log("parsed body is next ")
+						//console.log(thebody)
+					}
+
+
+
+					retCode = result.statusCode;
 
 					//console.log("Comparing " + retCode + "=" + group[2] );
 				
 					if(retCode == group[2] ){
 						//console.log("Successfully called url. Returning true");
+						global._p.body = thebody;
 						
-						global._p.body = (result[0].body);
 						global.pseudo = global._p;	
 						global.RESPONSE = global._p;
 						global[curlKey] = global.RESPONSE;

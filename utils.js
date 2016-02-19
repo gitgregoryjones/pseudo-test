@@ -29,7 +29,7 @@ global._compareTo = function(me,you,testForFieldTypeOnly) {
          
          //Do values have the same value
          ret = (me[key] == you[key])
-         //console.log("Comparing objects " + me[key] + "==>" + " to "+ you[key]+ "==> with key [" + key + "] testForFieldTypeOnly flag is " + testForFieldTypeOnly);
+         console.log("Comparing objects " + me[key] + "==>" + " to "+ you[key]+ "==> with key [" + key + "] testForFieldTypeOnly flag is " + testForFieldTypeOnly);
          if(!ret && typeof me[key] != "object" && testForFieldTypeOnly != true) {
           
           throw new Error("Value of attribute [" + key + "] has value [" + me[key] + "] in object " + JSON.stringify(me) + " AND DOES NOT MATCH [" + key + "] with value [" + you[key] + "] in second object [" + JSON.stringify(you))

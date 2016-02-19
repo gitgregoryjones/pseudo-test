@@ -35,6 +35,9 @@ module.exports.processLine = function(line){
 		
 		console.log("fuzzy match is " + fuzzyMatch)
 
+		console.log("G1 " + group[1])
+		console.log("G2 " +  group[3])
+
 		try{
 			objA = JSON.parse(group[1])
 		}catch(e){
