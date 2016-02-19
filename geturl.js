@@ -78,7 +78,9 @@ module.exports.processLine = function(line,linenumber){
 
 			if(group[4] != undefined){
 				console.log("Appending Body to the request " + group[4])
-				options.body = JSON.parse(group[4])
+				//options.body = JSON.stringify(group[4].trim())
+				options.body= (group[4]);
+				//options.json = true;
 			}
 
 			result = []
@@ -90,6 +92,7 @@ module.exports.processLine = function(line,linenumber){
 					
 					console.log("content-type is " + xml)
 
+					//default result.body is text/plain.  No conversion is done if content-type does not merit it
 					result = result[0];
 
 					var thebody = result.body;
@@ -100,13 +103,13 @@ module.exports.processLine = function(line,linenumber){
 							thebody = result;
 						})
 						//console.log("HELLO !!!!!" + thebody)
-					} else {
+					} else if(xml.indexOf("json") > -1){
 
 						console.log("JSON")
 						thebody = JSON.parse(thebody)
 						//console.log("parsed body is next ")
 						//console.log(thebody)
-					}
+					} 
 
 
 
