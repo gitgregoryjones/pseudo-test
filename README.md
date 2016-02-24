@@ -40,7 +40,10 @@ TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014
 ### Pseudo Test Errors
 Errors are simply stated and highlighted in red along with the offending line number
 ```bash
-npm test
+npm run ptest
+```
+```
+
 Calling URL http://someurl.com/api/profiles/vgheri
 Expecting a user specified response statusCode [200]
 Appending Body to the request {"firstName":"JP", "lastName":"Berd"}
@@ -61,7 +64,7 @@ npm install --save pseudo-test
   }
   ```
 #### 3) Save Test Case to [your project directory]/tests/myexample.test
-##### Any files *.test extension will be run
+##### Any files with *.test extension will be run
 
 ```bash
 
@@ -84,6 +87,10 @@ npm install --save pseudo-test
 #### 4) Run the Test(s)
 ```bash
 npm run ptest
+````
+#### 5) View The Output...Did it pass?
+``` bash
+
 Running test for file /Users/gregadmin/projects/cn-anything/tests/myexample.test
 Calling URL http://jsonplaceholder.typicode.com/users/1
 http_jsonplaceholder_typicode_com_users_1
@@ -112,6 +119,8 @@ Comparing objects hildegard.org==> to hildegard.org==> with key [website] testFo
 Overall Status : ALL TESTS PASSED
 ```
 ## Commands
+Intentionally kept small.  The point is to test your API and not learn a whole new language
+##### Note: Multi-line commands are not supported. 
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:|
 | SET HEADER [key:value]                                   | Used to set custom http headers.  SET HEADER "authkey":"1234"                                              |
@@ -126,7 +135,7 @@ Overall Status : ALL TESTS PASSED
 | DEBUG [any valid js express]                             | Wrap line in console.log and write to output line                                                        |
 
 ### Known Limitations
--- Multiline commands are not supported.
+-- Multi-line commands are not supported.
 
 -- Case of Commands is important: 'TEST' not equal 'TeSt' 
 
@@ -182,21 +191,24 @@ Error: Value of attribute [version==>3.1.48] does not match value of second obje
   ALL TESTS PASSED
 ```
 ### ENABLE GIT HOOKS
-It's a good idea to reject commits to git repo if your latest code changes cause a test to fail
+Setup your project to reject commits to git repo if your latest code changes cause a test to fail
 ```bash
 
 # copy this file to [your project directory]/.git/hooks/pre-commit
 # make it executable by typing chmod +x pre-commit
 #!/bin/bash
-  killall node
-  PORT="${PORT:-3000}"
+killall node
+PORT="${PORT:-3000}"
 
-  echo 'Starting local server at http://localhost and PORT' $PORT
-  node app.js &
-  sleep 2
-  node node_modules/pseudo-test/app.js
-  killall node
-  ...
+echo 'Starting local server at http://localhost and PORT' $PORT
+node app.js &
+sleep 2
+node node_modules/pseudo-test/app.js
+killall node
+
+```
+##### Attempting a commit automatically runs tests and rejects commit it tests fail
+``` bash
   git commit -m "I made a quick change and I'm sure it works"
 
   Running TEST {duration: "200","version":"3.1.47"} EQUALS ${_p.body}
