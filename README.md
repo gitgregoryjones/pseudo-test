@@ -60,10 +60,11 @@ npm install --save pseudo-test
     "ptest": "./node_modules/.bin/ptest"
   }
   ```
-  #### 3) Save Test Case to [your project directory]/tests/myexample.test
+#### 3) Save Test Case to [your project directory]/tests/myexample.test
 ##### Any files *.test extension will be run
 
 ```bash
+
 # My First Test Case <myexample.test>
 # I'm testing that I receive a 200 from the user service
  GET 200 http://jsonplaceholder.typicode.com/users/1
