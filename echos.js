@@ -15,7 +15,7 @@ var result = ""
 
 module.exports.processLine = function(line){
 
-	console.log("The line is " + line)
+	//console.log("The line is " + line)
 
 	expressions.every(function(expression){
 

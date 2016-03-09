@@ -12,7 +12,7 @@ Sync(function(){
 module.exports.processLine = function(line,linenumber){
 
 	var expressions = [
-{test:/(^GET|POST|PUT|DELETE)\s+(\d+)\s+([^\s]+)\s*(?:WITH\s+BODY\s+([^$]+))?/,"label":"Calling URL"
+{test:/(^\s*GET|POST|PUT|DELETE)\s+(\d+)\s+([^\s]+)\s*(?:WITH\s+BODY\s+([^$]+))?/,"label":"Calling URL"
 }]
 
 	expressions.forEach(function(expression){
@@ -60,7 +60,8 @@ module.exports.processLine = function(line,linenumber){
 
 
 
-			console.log("Calling URL " + group[3])
+			console.log("Calling METHOD [" + group[1]+"]")
+			console.log("Calling URL [" + group[3]+"]")
 
 			curlKey = group[3].replace("http://","http_").replace(/\./g,"_").replace(/\//g,"_").replace(/-/g,"_")
 			console.log(curlKey)
@@ -71,7 +72,7 @@ module.exports.processLine = function(line,linenumber){
 			console.log("Expecting a user specified response statusCode ["+group[2] + "]")
 
 			var options ={
-				method:group[1],
+				method:group[1].trim(),
 				uri:group[3],
 				headers:global._p.headers
 			}
@@ -85,9 +86,8 @@ module.exports.processLine = function(line,linenumber){
 
 			result = []
 
-				
 					result = request.sync(null,options)
-
+					
 					xml = result[0].headers['content-type']
 					
 					console.log("content-type is " + xml)
@@ -105,11 +105,20 @@ module.exports.processLine = function(line,linenumber){
 						//console.log("HELLO !!!!!" + thebody)
 					} else if(xml.indexOf("json") > -1){
 
-						console.log("JSON")
+						console.log(group[3] + " IS JSON")
 						thebody = JSON.parse(thebody)
 						//console.log("parsed body is next ")
 						//console.log(thebody)
-					} 
+					} else {
+						//try one last time to convert to json
+						console.log("Read type as " + xml + " but tried to convert to json anyway")
+						try {
+						thebody = JSON.parse(thebody)
+						}catch(e){
+							console.log("looks like we failed miserably. Defaulting to plain text and error follows...")
+							console.log(e)
+						}
+					}
 
 
 
