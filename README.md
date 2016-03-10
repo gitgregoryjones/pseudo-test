@@ -5,15 +5,6 @@ If you need to confirm that your XML or JSON API is behaving as expected, this m
 # Verify that API saves accounts as expected
 POST 200 http://myapi.com/user WITH BODY {"firstName":'JP', "lastName":'Berd'}
 TEST {"id":"10000","firstName":"JP","lastName":"Berd"} EQUALS RESPONSE.body 
-
-...
-prompt> npm run ptest
-Calling URL http://myapi.com/user
-Expecting a user specified response statusCode [200]
-Appending Body to the request {"firstName":"JP", "lastName":"Berd"}
-Error processing the following action on line 4 of ~/my-api/tests/useraccount.test
-POST 200 http://myapi.com/user WITH BODY {"firstName":"JP", "lastName":"Berd"}
-Error: POST Test failed the following condition ==> return Code [302] expected 200
 ```
 
 ### ...and say goodbye to this
