@@ -53,19 +53,19 @@ Intentionally kept small.  The point is to test your code and not learn a verbos
 ```
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code|
+| GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code
+| RESPONSE.body                                            | Last successful HTTP response.body.
 ```
-    PUT 200 ${hostvar}/user/1 WITH BODY {"id":"1","name":"Brent"}
+    #Retrieve list of users and test overrwrite first user with new info
     GET 200 ${hostvar}/users
+    PUT 200 ${hostvar}/user/${RESPONSE.body[0].id} WITH BODY {"id":"1","name":"Brent"}
 ```
     
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| RESPONSE.body                                            | Last successful HTTP response.body.                                                                     |
-                                                                                     | 
-| TEST [condition]                           | If test condition fails, break   |
-| TEST [obj] EQUALS [obj]                          | Test that two objects/arrays are equal. This is includes checking for expected type AND value for each member AND attribute                                |
-| TEST [obj] IS LIKE [obj]                         | Test two objects against each other. Only verify that attribute name and type of value match |
+| TEST [condition]                           | If test condition fails, break   
+| TEST [obj] EQUALS [obj]                          | Test that two objects/arrays are equal. This is includes checking for expected type AND value for each member AND attribute                                
+| TEST [obj] IS LIKE [obj]                         | Test two objects against each other. Only verify that attribute name and type of value match 
 ```
     TEST RESPONSE.body[0].name == "Brent"
     #Strict test.  Response body must exactly match the expected result
