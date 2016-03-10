@@ -56,7 +56,7 @@ Intentionally kept small.  The point is to test your code and not learn a verbos
 | GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code
 | RESPONSE.body                                            | Last successful HTTP response.body.
 ```
-    #Retrieve list of users and test overrwrite first user with new info
+    #Retrieve list of users and test overwrite first user with new info
     GET 200 ${hostvar}/users
     PUT 200 ${hostvar}/user/${RESPONSE.body[0].id} WITH BODY {"id":"1","name":"Brent"}
 ```
