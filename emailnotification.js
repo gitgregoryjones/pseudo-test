@@ -1,6 +1,6 @@
 
 var expressions = [
-{test:/^Email\s+([^@]+@[^@\s]+)\s*/,"label":"Email notifications sent to"
+{test:/^Email\s+([^@]+@[^@\s]+)\s*/i,"label":"Email notifications sent to"
 }]
 
 global._p.emails = [];

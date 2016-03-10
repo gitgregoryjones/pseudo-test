@@ -1,10 +1,11 @@
---GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/cvpXML.do
+#Test that all active episodes will play in CVP player
 GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/getAllEpisodes.do
+
 DEBUG "Done Reading All Episodes"
-SETVAR episodes = RESPONSE.body.episodes.episode
-LOOP episodes AS episode
+
+LOOP RESPONSE.body.episodes.episode AS episode
 	DEBUG "Reading Episode id " + episode.$.id
-	SETVAR epid = episode.$.id
+	SET VAR epid = episode.$.id
 	GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/cvpXML.do?id=${epid}
 	TEST RESPONSE.body.video.$.id.length > 0
 ENDLOOP

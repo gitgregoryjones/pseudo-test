@@ -4,7 +4,7 @@ var Sync = require('sync');
 
 
 var expressions = [
-{test:/^\s*DEBUG\s+(.*)$/,"label":"Saving Result of User Expression"
+{test:/^\s*DEBUG\s+(.*)$/i,"label":"Saving Result of User Expression"
 }]
 
 

@@ -2,7 +2,7 @@
 
 
 var expressions = [
-{test:/^Set\s+Header\s+"([^(":)]+)"\s*:\s*"([^(")]+)".*/,"label":"Setting Request Header"
+{test:/^Set\s+Header\s+"([^(":)]+)"\s*:\s*"([^(")]+)".*/i,"label":"Setting Request Header"
 }]
 
 global._p.headers = {};

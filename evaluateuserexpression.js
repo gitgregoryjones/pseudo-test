@@ -4,7 +4,7 @@ var Sync = require('sync');
 equals = require('./equals')
 
 var expressions = [
-{test:/^\s*TEST\s+(.*)$/,"label":"Testing User Expression"
+{test:/^\s*TEST\s+(.*)$/i,"label":"Testing User Expression"
 }]
 
 Sync(function(){

@@ -1,34 +1,4 @@
 # Pseudo Test
-
-Pseudo Test uses pseudo syntax (plain English) to test your API routes.  So, instead of writing tests like this..
-```js
-//wth!!!, I have a deadline. Who can write this much code just to test?????
-var url = 'http://someurl.com';
-it('should correctly update an existing account', function(done){
-	var body = {
-		firstName: 'JP',
-		lastName: 'Berd'
-	};
-	request(url)
-		.post('/api/profiles/vgheri')
-		.send(body)
-		.expect('Content-Type', /json/)
-		.expect(200) //Status code
-		.end(function(err,res) {
-			if (err) {
-				throw err;
-			}
-			// Should.js fluent syntax applied
-			res.body.should.have.property('_id');
-	                res.body.should.have.property('firstName');
-	                res.body.should.have.property('lastName');
-	                res.body.should.have.property('creationDate');
-	                res.body.creationDate.should.not.equal(null);
-			done();
-		});
-	});
-  })
-  ```
 ### Write Test Cases in Plain English
 ```bash
 # Verify that account save route works as expected
@@ -37,8 +7,45 @@ POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":'JP', "la
 
 TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014"} EQUALS RESPONSE.body 
 ```
-### Pseudo Test Errors
-Errors are simply stated and highlighted in red along with the offending line number
+### ...And Say Goodbye To This
+
+
+```js
+//wth!!!, I have a deadline. Who can write this much code just to test?????
+var url = 'http://someurl.com';
+it('should correctly update an existing account', function(done){
+  var body = {
+    firstName: 'JP',
+    lastName: 'Berd'
+  };
+  request(url)
+    .post('/api/profiles/vgheri')
+    .send(body)
+    .expect('Content-Type', /json/)
+    .expect(200) //Status code
+    .end(function(err,res) {
+      if (err) {
+        throw err;
+      }
+      // Should.js fluent syntax applied
+      res.body.should.have.property('_id');
+                  res.body.should.have.property('firstName');
+                  res.body.should.have.property('lastName');
+                  res.body.should.have.property('creationDate');
+                  res.body.creationDate.should.not.equal(null);
+      done();
+    });
+  });
+  })
+  ```
+### Latest Updates
+ Version                         |                                                Change                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------
+| 1.1.3                                 | Commands are now case insensitive.  Set Variable command added
+| 1.1.3                                 | LOOP command added
+| 1.1.3 |   SET VAR(iable) command added
+### Pseudo Test Feedback
+Executing tests is easy and errors are plainly stated along with offending line number.
 ```bash
 npm run ptest
 ```
@@ -118,21 +125,48 @@ Comparing objects Bret==> to Bret==> with key [username] testForFieldTypeOnly fl
 Comparing objects hildegard.org==> to hildegard.org==> with key [website] testForFieldTypeOnly flag is false
 Overall Status : ALL TESTS PASSED
 ```
+##### Note: All Commands are CaSe InSentive.... SET HEADER = SeT headER
 ## Commands
-Intentionally kept small.  The point is to test your API and not learn a whole new language
-##### Note: Multi-line commands are not supported. 
+Intentionally kept small.  The point is to test your code and not learn a verbose language in the process
+ 
 |                          Command                         |                                                Description                                               |
-|:--------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:|
-| SET HEADER [key:value]                                   | Used to set custom http headers.  SET HEADER "authkey":"1234"                                              |
-| SETVAR [var] = [value]                                   | Set a variable to be used with other commands. SETVAR hostvar = http://jsonplaceholder.typicode.com        |
-| GET,POST,PUT,DELETE [code] [url] (WITH BODY) (json body) | Execute HTTP Request and save response in variable _p.body ex. GET 200 ${hostvar}/posts/1                |
-| RESPONSE.body                                            | Last successful HTTP response.body                                                                       |
-| _p.body                                                  | Alias RESPONSE.body                                                                                      |
-| [hostname].body                                          | Alias RESPONSE.body with '/' and ':' replaced with '_'  Ex.  http_host_com_user_1.body                   |
-| TEST [any valid js comparison]                           | TEST _p.body[0].favoritecolor == "blue"                                                                  |
-| TEST [obj] EQUALS RESPONSE.body                          | Test entire response body against expected json. Check for type and value                                |
-| TEST [obj] IS LIKE RESPONSE.body                         | Test entire response body against expected json. Only verify that attribute name and type of value match |
-| DEBUG [any valid js express]                             | Wrap line in console.log and write to output line                                                        |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| SET HEADER ["key":"value"]                                   | Used to set custom http headers.                                              |
+| SET VAR(IABLE) [var] = [value]                                   | Set a local variable for use later      |
+    SET HEADER "authkey":"1234"
+    SET VAR hostvar = http://jsonplaceholder.typicode.com
+    #Alternate form, more english like
+    Set variable hostvar = http://jsonplaceholder.typicode.com
+
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code|
+    PUT 200 ${hostvar}/user/1 WITH BODY {"id":"1","name":"Brent"}
+    GET 200 ${hostvar}/users
+    
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| RESPONSE.body                                            | Last successful HTTP response.body.                                                                     |
+                                                                                     | 
+| TEST [condition]                           | If test condition fails, break   |
+| TEST [obj] EQUALS [obj]                          | Test that two objects/arrays are equal. This is includes checking for expected type AND value for each member AND attribute                                |
+| TEST [obj] IS LIKE [obj]                         | Test two objects against each other. Only verify that attribute name and type of value match |
+    TEST RESPONSE.body[0].name == "Brent"
+    #Strict test.  Response body must exactly match the expected result
+    TEST RESPONSE.body[1] EQUALS {id: 1,name: "Leanne Graham",username: "Lgraham"}
+    #lazy test. Response body must have same keys and types of values only
+    TEST RESPONSE.body[1] IS LIKE {id: 9999,name: "blah blah",username: "foo"}
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+|DEBUG [any valid expression]                                | Echo string to console                                     |
+| LOOP [list] AS [var] [test to execute] ENDLOOP                             | Iterate over list and execute all test(s) against each member of the list.  Break if failure.                                                       |
+    GET 200 http://jsonplaceholder.typicode.com/users
+    DEBUG "Number of users is ${RESPONSE.body[0]length}"
+    #Perform a couple of tests against each user returned in json array
+    LOOP RESPONSE.body AS user
+        TEST user.email != null
+        TEST typeof user.id == "number"
+    ENDLOOP                             
 
 ### Known Limitations
 -- Multi-line commands are not supported.
@@ -143,18 +177,19 @@ Intentionally kept small.  The point is to test your API and not learn a whole n
 
 Ex. DEBUG "First Person is ${RESPONSE.body[0].name}"
 
-### Underscore.js functions available in all tests
+### Pro-tip: Underscore.js functions are available in all tests
 ```bashU
-# Use underscore.js library to make my life easier
-# Also use <font color="pink">sync</font> library because async sucks for tests sometimes
-# I want test that my REST API /sort route works correctly
+# Call underscore.js library _.sortBy and _.difference to make my life easier
+# Test that my REST API /sort route works correctly
 # http://underscorejs.org/
   
-SETVAR sortedArray = _.sortBy([3,4,6,1,2,5],function(num){return num})
+SET VAR sortedArray = _.sortBy([3,4,6,1,2,5],function(num){return num})
   
 GET 200 http://myservice/sort WITH BODY [3,4,6,1,2,5]
 
 TEST _.difference(sortedArray,RESPONSE.body) == []
+
+DEBUG RESPONSE.body
 
   ```
 ### Advanced Usage Example(s)
@@ -169,28 +204,28 @@ TEST _.difference(sortedArray,RESPONSE.body) == []
 
   GET 200 http://video-api.cartoonnetwork.com/version
 
-  TEST {name: "cn-go-api","version":"3.1.48"} EQUALS _p.body
+  TEST {name: "cn-go-api","version":"3.1.48"} EQUALS RESPONSE.body
   .....
   
-  npm test
-Running TEST {name: "cn-go-api","version":"3.1.48"} EQUALS _p.body
+  npm run ptest
+Running TEST {name: "cn-go-api","version":"3.1.48"} EQUALS RESPONSE.body
 Error processing the following action on line 32 of /projectx/tests/versioncheck.test
-TEST {name: "cn-go-api","version":"3.1.48"} EQUALS _p.body
+TEST {name: "cn-go-api","version":"3.1.48"} EQUALS RESPONSE.body
 Error: Value of attribute [version==>3.1.48] does not match value of second object [version ==>3.1.47]
 
   ...
   # Set less strict checking.  I only care that the each object's
   # keys match and the values are the correct type.
   # Actual value for each key does not matter
-  TEST {name: "cn-go-api","version":"3.1.48"} IS LIKE _p.body
+  TEST {name: "cn-go-api","version":"3.1.48"} IS LIKE RESPONSE.body
   
   ...
   
-  npm test
-  Running TEST {name: "cn-go-api","version":"3.1.48"} IS LIKE _p.body
+  npm run ptest
+  Running TEST {name: "cn-go-api","version":"3.1.48"} IS LIKE RESPONSE.body
   ALL TESTS PASSED
 ```
-### ENABLE GIT HOOKS
+### Pro-Tip: ENABLE GIT HOOKS
 Setup your project to reject commits to git repo if your latest code changes cause a test to fail
 ```bash
 
@@ -211,9 +246,9 @@ killall node
 ``` bash
   git commit -m "I made a quick change and I'm sure it works"
 
-  Running TEST {duration: "200","version":"3.1.47"} EQUALS ${_p.body}
+  Running TEST {duration: "200","version":"3.1.47"} EQUALS ${RESPONSE.body}
   Error processing the following action on line 32 of ~/myapi/tests/oldbusinessrules.test
-  TEST {duration: "200","version":"3.1.47"} EQUALS _p.body
+  TEST {duration: "200","version":"3.1.47"} EQUALS RESPONSE.body
 
   Error: Encountered attribute in this object which is not the same attribute type in comparison object
   duration is [number] in first object while duration attribute in second object is of type [string]

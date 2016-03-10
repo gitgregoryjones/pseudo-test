@@ -28,7 +28,7 @@ setSpecialChar(_DEFAULT_);
 global.verbs = {
 	"SETVAR" : "savevariablestoglobalscope",
 	"DEBUG" : "echos",
-	"SET":"setheader",
+	"SET":"set",
 	"TEST":"evaluateuserexpression"
 	,"GET":"geturl",
 	"POST":"geturl",
@@ -70,8 +70,11 @@ Sync(function(){
 	var content = "";
 	var searchingForEndLoop = false;
 	var forLoopLine = 0;
+
+	var linesToProcess = []
 	
 
+	/*Loop through tests and execute any commands found in them*/
 	files.every(function(file){
 
 		global.linenumber = 0;
@@ -144,7 +147,7 @@ Sync(function(){
 
 					}catch(e){
 						console.log(chalk.red("Error processing the following action on line " + linenumber + " of " + testdir + file));
-						console.log((line));
+						console.log((linesToProcess[linenumber-1]));
 						console.log(chalk.red(e));
 						global.found = false;
 					}

@@ -4,7 +4,7 @@ var Sync = require('sync');
 
 
 var expressions = [
-{test:/^\s*SETVAR\s+(.*)$/,"label":"Saving Result of User Expression"
+{test:/^\s*SET\s+(?:VAR|variable)\s+(.*)$/i,"label":"Saving Result of User Expression"
 }]
 
 
@@ -25,9 +25,6 @@ module.exports.processLine = function(line){
 		if(group != null && group[1]){
 
 			group[1] = group[1].replace(variableSubstitution, function(curly,index,original){
-				//console.log("Original [" + original+"]");
-				//console.log("Curly " + curly);
-				//console.log("Index " + index);
 
 				userSpecifiedVar = curly.substring(2,curly.indexOf("}"));
 				//console.log("userSpecifiedVar " + userSpecifiedVar);
@@ -40,10 +37,6 @@ module.exports.processLine = function(line){
 
 				} else if(global._.isObject(userValue)){
 				
-					//group[1] = "new Object("+ original.replace(".deepEquals", ").deepEquals");
-					//console.log("Object original is " + original);
-					//console.log("The following object is used for substitution")
-					//console.log(eval("global."+userSpecifiedVar) );
 					return userSpecifiedVar;
 
 				}else {
@@ -53,12 +46,7 @@ module.exports.processLine = function(line){
 				}
 				
 			});
-
-
-			//console.log("Running " + line.trim());
-			
-			//console.log("Saving " + group[1] )
-			
+		
 			eval(group[1]);
 		
 			

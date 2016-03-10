@@ -13,7 +13,7 @@ var expressions = [
 module.exports.processLine = function(line,linenumber){
 
 
-		group = line.match(/\s*LOOP\s+(\w+)\s+AS\s+(\w+)\s*(?:\n+([\s\S]+)\n+\s*)+ENDLOOP/im);
+		group = line.match(/\s*LOOP\s+(.+)\s+AS\s+(.+)\s*(?:\n+([\s\S]+)\n+\s*)+ENDLOOP/im);
 
 		console.log("GROUP IS ")
 

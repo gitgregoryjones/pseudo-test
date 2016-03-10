@@ -4,7 +4,7 @@ var Sync = require('sync');
 compare = require('./utils')
 
 var expressions = [
-{test:/\s*TEST\s*(.+)\s+(EQUALS|IS LIKE)\s+(.+)?$/g,"label":"Compare 2 Objects"
+{test:/\s*TEST\s*(.+)\s+(EQUALS|IS LIKE)\s+(.+)?$/ig,"label":"Compare 2 Objects"
 }]
 
 Sync(function(){

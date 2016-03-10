@@ -12,7 +12,7 @@ Sync(function(){
 module.exports.processLine = function(line,linenumber){
 
 	var expressions = [
-{test:/(^\s*GET|POST|PUT|DELETE)\s+(\d+)\s+([^\s]+)\s*(?:WITH\s+BODY\s+([^$]+))?/,"label":"Calling URL"
+{test:/(^\s*GET|POST|PUT|DELETE)\s+(\d+)\s+([^\s]+)\s*(?:WITH\s+BODY\s+([^$]+))?/i,"label":"Calling URL"
 }]
 
 	expressions.forEach(function(expression){
@@ -60,11 +60,11 @@ module.exports.processLine = function(line,linenumber){
 
 
 
-			console.log("Calling METHOD [" + group[1]+"]")
+			console.log("Calling METHOD [" + group[1].trim()+"]")
 			console.log("Calling URL [" + group[3]+"]")
 
-			curlKey = group[3].replace("http://","http_").replace(/\./g,"_").replace(/\//g,"_").replace(/-/g,"_")
-			console.log(curlKey)
+			curlKey = group[3].replace("http://","http_").replace(/\./g,"_").replace(/\//g,"_").replace(/-/g,"_").replace(/\?/g,"_").replace(/=/g,"_")
+			console.log("Body Alias : " + curlKey)
 
 			
 			//console.log("Group[4] " + group[4])
