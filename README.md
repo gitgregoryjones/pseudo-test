@@ -1,25 +1,23 @@
 # Pseudo Test
 ### Write Test Cases in Plain English
 ```bash
-# Verify that account save route works as expected
-
-POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":'JP', "lastName":'Berd'}
-
-TEST {"id":"10000","firstName":"JP","lastName":"Berd","creationDate","12/25/2014"} EQUALS RESPONSE.body 
+# Verify that API saves accounts as expected
+POST 200 http://myapi.com/user WITH BODY {"firstName":'JP', "lastName":'Berd'}
+TEST {"id":"10000","firstName":"JP","lastName":"Berd"} EQUALS RESPONSE.body 
 ```
 ### ...And Say Goodbye To This
 
 
 ```js
 //wth!!!, I have a deadline. Who can write this much code just to test?????
-var url = 'http://someurl.com';
+var url = 'http://myapi.com';
 it('should correctly update an existing account', function(done){
   var body = {
     firstName: 'JP',
     lastName: 'Berd'
   };
   request(url)
-    .post('/api/profiles/vgheri')
+    .post('/user')
     .send(body)
     .expect('Content-Type', /json/)
     .expect(200) //Status code
@@ -41,9 +39,9 @@ it('should correctly update an existing account', function(done){
 ### Latest Updates
  Version                         |                                                Change                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------
-| 1.1.3                                 | Commands are now case insensitive.  Set Variable command added
-| 1.1.3                                 | LOOP command added
-| 1.1.3 |   SET VAR(iable) command added
+| 1.1.4                                 | Commands are now case insensitive.  
+| 1.1.4                                 | LOOP command added
+| 1.1.4 |   SET VAR(iable) command added
 ### Pseudo Test Feedback
 Executing tests is easy and errors are plainly stated along with offending line number.
 ```bash
@@ -133,16 +131,19 @@ Intentionally kept small.  The point is to test your code and not learn a verbos
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | SET HEADER ["key":"value"]                                   | Used to set custom http headers.                                              |
 | SET VAR(IABLE) [var] = [value]                                   | Set a local variable for use later      |
+```
     SET HEADER "authkey":"1234"
     SET VAR hostvar = http://jsonplaceholder.typicode.com
     #Alternate form, more english like
     Set variable hostvar = http://jsonplaceholder.typicode.com
-
+```
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code|
+```
     PUT 200 ${hostvar}/user/1 WITH BODY {"id":"1","name":"Brent"}
     GET 200 ${hostvar}/users
+```
     
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
@@ -151,29 +152,31 @@ Intentionally kept small.  The point is to test your code and not learn a verbos
 | TEST [condition]                           | If test condition fails, break   |
 | TEST [obj] EQUALS [obj]                          | Test that two objects/arrays are equal. This is includes checking for expected type AND value for each member AND attribute                                |
 | TEST [obj] IS LIKE [obj]                         | Test two objects against each other. Only verify that attribute name and type of value match |
+```
     TEST RESPONSE.body[0].name == "Brent"
     #Strict test.  Response body must exactly match the expected result
     TEST RESPONSE.body[1] EQUALS {id: 1,name: "Leanne Graham",username: "Lgraham"}
     #lazy test. Response body must have same keys and types of values only
     TEST RESPONSE.body[1] IS LIKE {id: 9999,name: "blah blah",username: "foo"}
+```
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 |DEBUG [any valid expression]                                | Echo string to console                                     |
 | LOOP [list] AS [var] [test to execute] ENDLOOP                             | Iterate over list and execute all test(s) against each member of the list.  Break if failure.                                                       |
+```
     GET 200 http://jsonplaceholder.typicode.com/users
     DEBUG "Number of users is ${RESPONSE.body[0]length}"
     #Perform a couple of tests against each user returned in json array
     LOOP RESPONSE.body AS user
         TEST user.email != null
         TEST typeof user.id == "number"
-    ENDLOOP                             
+    ENDLOOP 
+```                            
 
 ### Known Limitations
 -- Multi-line commands are not supported.
 
--- Case of Commands is important: 'TEST' not equal 'TeSt' 
-
--- Use optional ${varname} syntax if your variables are enclosed in quotes
+-- Use ${varname} syntax if your variables will be enclosed in quotes
 
 Ex. DEBUG "First Person is ${RESPONSE.body[0].name}"
 
@@ -195,12 +198,9 @@ DEBUG RESPONSE.body
 ### Advanced Usage Example(s)
 
 ```bash
-# Compare a JSON string to the response body 
-  # .equals() method will validate that keys and values match
-  # setting second param to "true" enables less strict checking. 
-  # If checkAttributeTypeOnly = true, value checking is skipped
-  # and only the types are validated.
-  # Also Nested objects are supported.
+  # Compare a JSON string to the response body 
+
+  # Note: Nested objects are also supported.
 
   GET 200 http://video-api.cartoonnetwork.com/version
 
