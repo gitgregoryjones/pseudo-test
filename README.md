@@ -1,11 +1,22 @@
 # Pseudo Test
-### Write Test Cases in Plain English
+If you need to confirm that your XML or JSON API is behaving as expected, this module is for you.
+### Test API routes using plain English
 ```bash
 # Verify that API saves accounts as expected
 POST 200 http://myapi.com/user WITH BODY {"firstName":'JP', "lastName":'Berd'}
 TEST {"id":"10000","firstName":"JP","lastName":"Berd"} EQUALS RESPONSE.body 
+
+...
+prompt> npm run ptest
+Calling URL http://myapi.com/user
+Expecting a user specified response statusCode [200]
+Appending Body to the request {"firstName":"JP", "lastName":"Berd"}
+Error processing the following action on line 4 of ~/my-api/tests/useraccount.test
+POST 200 http://myapi.com/user WITH BODY {"firstName":"JP", "lastName":"Berd"}
+Error: POST Test failed the following condition ==> return Code [302] expected 200
 ```
-### ...And Say Goodbye To This
+
+### ...and say goodbye to this
 
 
 ```js
@@ -36,6 +47,54 @@ it('should correctly update an existing account', function(done){
   });
   })
   ```
+## Additional Commands
+Intentionally kept small.  The point is to test your code and not learn a verbose language in the process
+ 
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| SET HEADER ["key":"value"]                                   | Used to set custom http headers.                                              |
+| SET VAR(IABLE) [var] = [value]                                   | Set a local variable for use later      |
+```
+    SET HEADER "authkey":"1234"
+    SET VAR hostvar = http://jsonplaceholder.typicode.com
+    #Alternate form, more english like
+    Set variable hostvar = http://jsonplaceholder.typicode.com
+```
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code|
+```
+    PUT 200 ${hostvar}/user/1 WITH BODY {"id":"1","name":"Brent"}
+    GET 200 ${hostvar}/users
+```
+    
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| RESPONSE.body                                            | Last successful HTTP response.body.                                                                     |
+                                                                                     | 
+| TEST [condition]                           | If test condition fails, break   |
+| TEST [obj] EQUALS [obj]                          | Test that two objects/arrays are equal. This is includes checking for expected type AND value for each member AND attribute                                |
+| TEST [obj] IS LIKE [obj]                         | Test two objects against each other. Only verify that attribute name and type of value match |
+```
+    TEST RESPONSE.body[0].name == "Brent"
+    #Strict test.  Response body must exactly match the expected result
+    TEST RESPONSE.body[1] EQUALS {id: 1,name: "Leanne Graham",username: "Lgraham"}
+    #lazy test. Response body must have same keys and types of values only
+    TEST RESPONSE.body[1] IS LIKE {id: 9999,name: "blah blah",username: "foo"}
+```
+|                          Command                         |                                                Description                                               |
+|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+|DEBUG [any valid expression]                                | Echo string to console                                     |
+| LOOP [list] AS [var] [test to execute] ENDLOOP                             | Iterate over list and execute all test(s) against each member of the list.  Break if failure.                                                       |
+```
+    GET 200 http://jsonplaceholder.typicode.com/users
+    DEBUG "Number of users is ${RESPONSE.body[0]length}"
+    #Perform a couple of tests against each user returned in json array
+    LOOP RESPONSE.body AS user
+        TEST user.email != null
+        TEST typeof user.id == "number"
+    ENDLOOP 
+```      
 ### Latest Updates
  Version                         |                                                Change                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------
@@ -43,20 +102,8 @@ it('should correctly update an existing account', function(done){
 | 1.1.4                                 | Commands are now case insensitive.  
 | 1.1.4                                 | LOOP command added
 | 1.1.4 |   SET VAR(iable) command added
-### Pseudo Test Feedback
-Executing tests is easy and errors are plainly stated along with offending line number.
-```bash
-npm run ptest
-```
-```
 
-Calling URL http://someurl.com/api/profiles/vgheri
-Expecting a user specified response statusCode [200]
-Appending Body to the request {"firstName":"JP", "lastName":"Berd"}
-Error processing the following action on line 4 of ~/my-api/tests/useraccount.test
-POST 200 http://someurl.com/api/profiles/vgheri WITH BODY {"firstName":"JP", "lastName":"Berd"}
-Error: POST Test failed the following condition ==> return Code [302] expected 200
-```
+
 ### How Can I get Started?
 
 #### 1.) Install from npm
@@ -124,55 +171,7 @@ Comparing objects Bret==> to Bret==> with key [username] testForFieldTypeOnly fl
 Comparing objects hildegard.org==> to hildegard.org==> with key [website] testForFieldTypeOnly flag is false
 Overall Status : ALL TESTS PASSED
 ```
-##### Note: All Commands are CaSe InSentive.... SET HEADER = SeT headER
-## Commands
-Intentionally kept small.  The point is to test your code and not learn a verbose language in the process
- 
-|                          Command                         |                                                Description                                               |
-|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| SET HEADER ["key":"value"]                                   | Used to set custom http headers.                                              |
-| SET VAR(IABLE) [var] = [value]                                   | Set a local variable for use later      |
-```
-    SET HEADER "authkey":"1234"
-    SET VAR hostvar = http://jsonplaceholder.typicode.com
-    #Alternate form, more english like
-    Set variable hostvar = http://jsonplaceholder.typicode.com
-```
-|                          Command                         |                                                Description                                               |
-|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| GET\|POST\|PUT\|DELETE [HTTP.code] [URL] (WITH BODY [any valid json]) | Execute HTTP Request and break if HTTP response code does not match user specified HTTP.code|
-```
-    PUT 200 ${hostvar}/user/1 WITH BODY {"id":"1","name":"Brent"}
-    GET 200 ${hostvar}/users
-```
-    
-|                          Command                         |                                                Description                                               |
-|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| RESPONSE.body                                            | Last successful HTTP response.body.                                                                     |
-                                                                                     | 
-| TEST [condition]                           | If test condition fails, break   |
-| TEST [obj] EQUALS [obj]                          | Test that two objects/arrays are equal. This is includes checking for expected type AND value for each member AND attribute                                |
-| TEST [obj] IS LIKE [obj]                         | Test two objects against each other. Only verify that attribute name and type of value match |
-```
-    TEST RESPONSE.body[0].name == "Brent"
-    #Strict test.  Response body must exactly match the expected result
-    TEST RESPONSE.body[1] EQUALS {id: 1,name: "Leanne Graham",username: "Lgraham"}
-    #lazy test. Response body must have same keys and types of values only
-    TEST RESPONSE.body[1] IS LIKE {id: 9999,name: "blah blah",username: "foo"}
-```
-|                          Command                         |                                                Description                                               |
-|:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-|DEBUG [any valid expression]                                | Echo string to console                                     |
-| LOOP [list] AS [var] [test to execute] ENDLOOP                             | Iterate over list and execute all test(s) against each member of the list.  Break if failure.                                                       |
-```
-    GET 200 http://jsonplaceholder.typicode.com/users
-    DEBUG "Number of users is ${RESPONSE.body[0]length}"
-    #Perform a couple of tests against each user returned in json array
-    LOOP RESPONSE.body AS user
-        TEST user.email != null
-        TEST typeof user.id == "number"
-    ENDLOOP 
-```                            
+                      
 
 ### Known Limitations
 -- Multi-line commands are not supported.
