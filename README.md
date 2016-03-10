@@ -39,6 +39,7 @@ it('should correctly update an existing account', function(done){
 ### Latest Updates
  Version                         |                                                Change                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------
+| 1.1.5                                 | SETVAR command removed.  Use SET VAR instead
 | 1.1.4                                 | Commands are now case insensitive.  
 | 1.1.4                                 | LOOP command added
 | 1.1.4 |   SET VAR(iable) command added
