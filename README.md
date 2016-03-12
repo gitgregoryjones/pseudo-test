@@ -75,9 +75,18 @@ Intentionally kept small.  The point is to test your code and not learn a verbos
 ```
 |                          Command                         |                                                Description                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+|Include [path to module]                                | Include a module and set local variable to module name. NOTE: slashes (/) and (-) are converted to (_) underscores
+|Calll [function]                                | Execute a function from included module
 |DEBUG [any valid expression]                                | Echo string to console                                     |
 | LOOP [list] AS [var] [test to execute] ENDLOOP                             | Iterate over list and execute all test(s) against each member of the list.  Break if failure.                                                       |
 ```
+    Include models/account
+
+    #Test Account balance
+    SET VAR balance = models_account.creditAccount('checking',1000.00)
+    SET VAR balance = models_account.debitAccount('checking',500.00)
+    TEST balance == 500.00
+
     GET 200 http://jsonplaceholder.typicode.com/users
     DEBUG "Number of users is ${RESPONSE.body[0]length}"
     #Perform a couple of tests against each user returned in json array
@@ -89,6 +98,8 @@ Intentionally kept small.  The point is to test your code and not learn a verbos
 ### Latest Updates
  Version                         |                                                Change                                               |
 |:--------------------------------------------------------|--------------------------------------------------------------------------------------------------------
+| 1.1.9                                 | Include command added  
+| 1.1.9                                 | Call command added  
 | 1.1.5                                 | SETVAR command removed.  Use SET VAR instead
 | 1.1.4                                 | Commands are now case insensitive.  
 | 1.1.4                                 | LOOP command added

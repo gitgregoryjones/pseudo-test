@@ -1,11 +1,21 @@
+INCLUDE models/account
+
 #Test that all active episodes will play in CVP player
 GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/getAllEpisodes.do
 
 DEBUG "Done Reading All Episodes"
 
-LOOP RESPONSE.body.episodes.episode AS episode
-	DEBUG "Reading Episode id " + episode.$.id
-	SET VAR epid = episode.$.id
-	GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/cvpXML.do?id=${epid}
-	TEST RESPONSE.body.video.$.id.length > 0
-ENDLOOP
+Set variable accountid = RESPONSE.body.episodes.episode[0].$.id
+
+Call models_account.lookupUser(${accountid})
+
+Set variable myuser =  models_account.lookupUser(${accountid})
+
+DEBUG "user is " + JSON.stringify(myuser)
+
+--LOOP RESPONSE.body.episodes.episode AS episode
+--	DEBUG "Reading Episode id " + episode.$.id
+--	SET VAR epid = episode.$.id
+--	GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/cvpXML.do?id=${epid}
+--	TEST RESPONSE.body.video.$.id.length > 0
+--ENDLOOP

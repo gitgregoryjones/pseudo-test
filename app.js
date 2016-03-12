@@ -3,6 +3,7 @@ var pp = require('parentpath');
 
 var path = require('path');
 utils = require('./utils')
+mock = require('./mock')
 
 global.chalk = require('chalk');
 
@@ -26,6 +27,8 @@ global.setSpecialChar = function(special){
 setSpecialChar(_DEFAULT_);
 
 global.verbs = {
+	"CALL" : "call",
+	"INCLUDE" : "include",
 	"SETVAR" : "savevariablestoglobalscope",
 	"DEBUG" : "echos",
 	"SET":"set",
