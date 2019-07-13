@@ -186,5 +186,6 @@ Sync(function(){
 	}catch(e){
 		console.log(e);
 	}
+	//Do nothing
 	
 })
