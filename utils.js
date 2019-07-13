@@ -76,5 +76,6 @@ Object.prototype.isSameJSON = function(you,ignoreValueDiffs){
 
 }
 
+//Add a line comment for the isSameJson
 module.exports.isSameJSON = _compareTo;
 
