@@ -1,4 +1,4 @@
-
+#Author : bob@home.com
 var Sync = require('sync');
 
 compare = require('./utils')
