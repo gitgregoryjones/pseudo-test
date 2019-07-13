@@ -1,6 +1,7 @@
 
 var Sync = require('sync');
 
+//This stuff is really old but I knew my regex back then!
 
 
 var expressions = [
