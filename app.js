@@ -1,3 +1,4 @@
+/* Setting some global doc line */
 var Sync = require('sync');
 var pp = require('parentpath');
 
