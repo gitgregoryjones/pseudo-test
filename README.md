@@ -257,4 +257,3 @@ killall node
   COMMIT ABORTED : FIX BUG AND TRY AGAIN
   ```
 
-READ BOTH DOCS
