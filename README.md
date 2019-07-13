@@ -256,4 +256,11 @@ killall node
   duration is [number] in first object while duration attribute in second object is of type [string]
   COMMIT ABORTED : FIX BUG AND TRY AGAIN
   ```
+
 ADD README LINE
+
+
+READ BOTH DOCS
+
+DOING IT WITH THE R
+
