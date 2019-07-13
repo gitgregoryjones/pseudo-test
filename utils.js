@@ -72,6 +72,7 @@ global._compareTo = function(me,you,testForFieldTypeOnly) {
 
 Object.prototype.isSameJSON = function(you,ignoreValueDiffs){
 
+  //Return a comparison func
   return _compareTo(this,you,ignoreValueDiffs);
 
 }
