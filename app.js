@@ -1,6 +1,7 @@
 
 /* Setting some global doc line */
 /* It's gotta be funky */
+/* Adding more junk */
 =======
 
 var Sync = require('sync');
