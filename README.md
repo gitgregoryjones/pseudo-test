@@ -248,7 +248,7 @@ killall node
 ``` bash
   git commit -m "I made a quick change and I'm sure it works"
 
-  Running TEST {duration: "200","version":"3.1.47"} EQUALS ${RESPONSE.body}
+  Running A COOL TEST {duration: "200","version":"3.1.47"} EQUALS ${RESPONSE.body}
   Error processing the following action on line 32 of ~/myapi/tests/oldbusinessrules.test
   TEST {duration: "200","version":"3.1.47"} EQUALS RESPONSE.body
 
