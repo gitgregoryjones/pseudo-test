@@ -1,4 +1,13 @@
 
+/* Setting some global doc line */
+/* It's gotta be funky */
+/* It's happening again */
+/* And still more */
+/* Look for me on QA */
+/* Last but not least */
+/* Doing it for the gram */
+=======
+
 var Sync = require('sync');
 var pp = require('parentpath');
 
@@ -187,5 +196,6 @@ Sync(function(){
 	}catch(e){
 		console.log(e);
 	}
+	//Do nothing
 	
 })
