@@ -15,11 +15,11 @@
     "tap"
   ],
   "dependencies": {
-    "caching": "^0.1.4",
+    "caching": "^0.1.5",
     "chalk": "^1.1.1",
     "config": "~1.12.0",
     "email-validator": "~1.0.1",
-    "find-parent-dir": "^0.3.0",
+    "find-parent-dir": "^0.5.0",
     "moment": "2.8.2",
     "node-sync": "^0.1.0",
     "parentpath": "^0.2.0",
