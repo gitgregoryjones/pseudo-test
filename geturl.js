@@ -1,4 +1,4 @@
-
+/** Docs for GetURl */
 var request = require("request");
 var Sync = require('sync');
 var xml2js = require('xml2js');
