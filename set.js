@@ -1,4 +1,7 @@
+
 /* Doc for Set.js */
+/*** Set it off **/
+
 var Sync = require('sync');
 
 

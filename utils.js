@@ -1,7 +1,7 @@
 var Sync = require('sync');
 Sync(function(){
 var ret = false;
-
+//That is cooling
 //http://stackoverflow.com/questions/1187518/javascript-array-difference
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
@@ -72,9 +72,11 @@ global._compareTo = function(me,you,testForFieldTypeOnly) {
 
 Object.prototype.isSameJSON = function(you,ignoreValueDiffs){
 
+  //Return a comparison func
   return _compareTo(this,you,ignoreValueDiffs);
 
 }
 
+//Add a line comment for the isSameJson
 module.exports.isSameJSON = _compareTo;
 
