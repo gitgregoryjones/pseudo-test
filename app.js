@@ -8,6 +8,7 @@
 /* Doing it for the gram */
 /* Adding more junk */
 /* Junk in the trunk */
+/* Be careful of typos */
 
 var Sync = require('sync');
 var pp = require('parentpath');
@@ -115,6 +116,8 @@ Sync(function(){
 				
 					 action = verbs[firstword[1].trim().toUpperCase()];
 
+					 //	console.log(`Executing action ${action}`);
+
 					 try{
 						
  						if(action){
@@ -146,7 +149,13 @@ Sync(function(){
 
 						 	}else {
 
+						 		//console.log(`Requiring action ${action}`);
+
+							 	
 							 	instruction = require('./'+action);
+							 	
+
+							 	//console.log(`Loaded action ${action}`);
 
 							 	retCode = instruction.processLine(line);
 
