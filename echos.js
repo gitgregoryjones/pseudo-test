@@ -26,19 +26,23 @@ module.exports.processLine = function(line){
 		group = line.match(expression.test)
 
 	
+		
+
 		if(group != null && group[1]){
 
-			group[1] = group[1].replace(variableSubstitution, function(curly,index,original){
-				//console.log("Original [" + original+"]");
-				//console.log("Curly " + curly);
-				//console.log("Index " + index);
+			var printme = group[1];
+
+			printme = group[1].replace(variableSubstitution, function(curly,index,original){
+				console.log("Original [" + original+"]");
+				console.log("Curly " + curly);
+				console.log("Index " + index);
 
 				userSpecifiedVar = curly.substring(2,curly.indexOf("}"));
 				//console.log("userSpecifiedVar " + userSpecifiedVar);
-				userValue = eval("global."+userSpecifiedVar);
+				userValue = (userSpecifiedVar);
 
 				//console.log("User value is " + userValue)
-
+				/*
 				if(global._.isNumber(userValue)){
 					return userValue
 
@@ -55,15 +59,19 @@ module.exports.processLine = function(line){
 
 					return '"'+ userValue+ '"'
 				}
-				
+				*/
+
+				return JSON.stringify(eval(userValue));
 			});
 
 
 			//console.log("Running " + line.trim());
 			
 			//console.log("Saving " + group[1] )
+
+
 			
-			console.log(eval(group[1]));
+			console.log((printme));
 		
 			
 		}
