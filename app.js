@@ -8,6 +8,7 @@
 /* Doing it for the gram */
 /* Adding more junk */
 /* Junk in the trunk */
+/* Be careful of typos */
 
 var Sync = require('sync');
 var pp = require('parentpath');
