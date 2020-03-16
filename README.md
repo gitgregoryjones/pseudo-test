@@ -8,6 +8,8 @@ TEST {"id":"10000","firstName":"JP","lastName":"Berd"} EQUALS RESPONSE.body
 ```
 
 ### ...and say goodbye to this
+#### .... goodby
+#### ... more mods
 
 
 ```js
@@ -38,6 +40,7 @@ it('should correctly update an existing account', function(done){
   });
   })
   ```
+## More Comments
 ## Additional Commands
 Intentionally kept small.  The point is to test your code and not learn a verbose language in the process
  
@@ -248,7 +251,7 @@ killall node
 ``` bash
   git commit -m "I made a quick change and I'm sure it works"
 
-  Running TEST {duration: "200","version":"3.1.47"} EQUALS ${RESPONSE.body}
+  Running A TEST {duration: "200","version":"3.1.47"} EQUALS ${RESPONSE.body}
   Error processing the following action on line 32 of ~/myapi/tests/oldbusinessrules.test
   TEST {duration: "200","version":"3.1.47"} EQUALS RESPONSE.body
 
@@ -256,3 +259,4 @@ killall node
   duration is [number] in first object while duration attribute in second object is of type [string]
   COMMIT ABORTED : FIX BUG AND TRY AGAIN
   ```
+
