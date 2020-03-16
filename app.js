@@ -9,6 +9,7 @@
 /* Adding more junk */
 /* Junk in the trunk */
 /* Be careful of typos */
+/* feature-correct */
 
 var Sync = require('sync');
 var pp = require('parentpath');
