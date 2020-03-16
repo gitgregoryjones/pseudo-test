@@ -19,6 +19,7 @@
     "chalk": "^1.1.1",
     "config": "~1.12.0",
     "email-validator": "~1.0.1",
+    "fibers": "^4.0.2",
     "find-parent-dir": "^0.3.0",
     "moment": "^2.24.0",
     "node-gyp": "^6.1.0",

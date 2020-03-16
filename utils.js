@@ -20,7 +20,7 @@ global._compareTo = function(me,you,testForFieldTypeOnly) {
 
        
   if ((k2.length > k1.length ? k2.diff(k1) : k1.diff(k2)).length > 0){ 
-      throw new Error("The names of attributes in both objects do not match. This following fields are missing from one of the objects: \n[" + (k2.length > k1.length ? k2.diff(k1) : k1.diff(k2)) + "] comparison object are " + JSON.stringify(me) + " AND " + JSON.stringify(you))
+      throw new Error("The names of attributes in both objects do not match. This following fields are missing from one of the objects: \n[" + (k2.length > k1.length ? k2.diff(k1) : k1.diff(k2)) + "] comparison object are " + JSON.stringify(me) + "AND " + JSON.stringify(you))
       //throw new Error("The number of attributes in both objects do not match\ncompare the keys to see for yourself\n BASE    OBJECT ["+k1 + "]\n COMPARE OBJECT ["+k2 + "]")
       return false;
      }
@@ -32,7 +32,7 @@ global._compareTo = function(me,you,testForFieldTypeOnly) {
          console.log("Comparing objects " + me[key] + "==>" + " to "+ you[key]+ "==> with key [" + key + "] testForFieldTypeOnly flag is " + testForFieldTypeOnly);
          if(!ret && typeof me[key] != "object" && testForFieldTypeOnly != true) {
           
-          throw new Error("Value of attribute [" + key + "] has value [" + me[key] + "] in object " + JSON.stringify(me) + " AND DOES NOT MATCH [" + key + "] with value [" + you[key] + "] in second object [" + JSON.stringify(you))
+          throw new Error("Value of attribute [" + key + "] has value [" + me[key] + "] in object " + JSON.stringify(me) + "\nAND DOES NOT MATCH [" + key + "] with value [" + you[key] + "] in second object [" + JSON.stringify(you))
         }
 
           //Do keys have same name

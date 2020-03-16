@@ -1,4 +1,4 @@
-#Author : bob@home.com
+
 var Sync = require('sync');
 
 compare = require('./utils')
@@ -19,14 +19,14 @@ module.exports.processLine = function(line){
 		
 		var group = null;
 
+		console.log(`processing instruction ${JSON.stringify(expression)}`);
+
 
 		//Rest The Regular Expresssion
 		//http://stackoverflow.com/questions/11477415/why-does-javascripts-regex-exec-not-always-return-the-same-value
 		expression.test.exec("")
 
 		group = expression.test.exec(line)
-
-	
 
 		objA = {}
 		objB = {}

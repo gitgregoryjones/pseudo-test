@@ -1,17 +1,21 @@
-INCLUDE models/account
+--INCLUDE models/account
 
 #Test that all active episodes will play in CVP player
-GET 200 http://www.cartoonnetwork.com/cntv/mvpd/services/getAllEpisodes.do
+GET 200 https://jsonplaceholder.typicode.com/users
 
-DEBUG "Done Reading All Episodes"
+DEBUG "Done Reading All Account"
 
-Set variable accountid = RESPONSE.body.episodes.episode[0].$.id
+DEBUG RESPONSE.body[0]
 
-Call models_account.lookupUser(${accountid})
+Set variable audit = RESPONSE.body
 
-Set variable myuser =  models_account.lookupUser(${accountid})
+TEST RESPONSE.body[0] EQUALS {  "id": 1,  "name": "Alex Leanne Graham",  "username": "Bret",  "email": "Sincere@april.biz",  "address": {    "street": "Kulas Light",    "suite": "Apt. 556",    "city": "Gwenborough",    "zipcode": "92998-3874",    "geo": {      "lat": "-37.3159",      "lng": "81.1496"    }  },  "phone": "1-770-736-8031 x56442",  "website": "hildegard.org",  "company": {    "name": "Romaguera-Crona",    "catchPhrase": "Multi-layered client-server neural-net",    "bs": "harness real-time e-markets"  }}
 
-DEBUG "user is " + JSON.stringify(myuser)
+--Call models_account.lookupUser(${accountid})
+
+--Set variable myuser =  models_account.lookupUser(${accountid})
+
+--DEBUG "user is " + JSON.stringify(myuser)
 
 --LOOP RESPONSE.body.episodes.episode AS episode
 --	DEBUG "Reading Episode id " + episode.$.id
