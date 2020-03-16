@@ -1,15 +1,19 @@
 --INCLUDE models/account
 
 #Test that all active episodes will play in CVP player
-GET 200 https://jsonplaceholder.typicode.com/users
+GET 200 https://api.inthearenasports.com/public/audit
 
 DEBUG "Done Reading All Account"
 
-DEBUG RESPONSE.body[0]
+DEBUG  This is the response ${RESPONSE.body.logs[0]} 
 
-Set variable audit = RESPONSE.body
+Set variable receipt = ${RESPONSE.body.logs[0].receipt}
 
-TEST RESPONSE.body[0] EQUALS {  "id": 1,  "name": "Alex Leanne Graham",  "username": "Bret",  "email": "Sincere@april.biz",  "address": {    "street": "Kulas Light",    "suite": "Apt. 556",    "city": "Gwenborough",    "zipcode": "92998-3874",    "geo": {      "lat": "-37.3159",      "lng": "81.1496"    }  },  "phone": "1-770-736-8031 x56442",  "website": "hildegard.org",  "company": {    "name": "Romaguera-Crona",    "catchPhrase": "Multi-layered client-server neural-net",    "bs": "harness real-time e-markets"  }}
+DEBUG Receipt is ${receipt}
+
+--TEST RESPONSE.body[0] EQUALS {  "id": 1,  "name": "Alex Leanne Graham",  "username": "Bret",  "email": "Sincere@april.biz",  "address": {    "street": "Kulas Light",    "suite": "Apt. 556",    "city": "Gwenborough",    "zipcode": "92998-3874",    "geo": {      "lat": "-37.3159",      "lng": "81.1496"    }  },  "phone": "1-770-736-8031 x56442",  "website": "hildegard.org",  "company": {    "name": "Romaguera-Crona",    "catchPhrase": "Multi-layered client-server neural-net",    "bs": "harness real-time e-markets"  }}
+
+TEST receipt == 0x3829a43162b8e62e6fc43bf89118931fb391dad50338ad9f6c7bd8279f713d8a
 
 --Call models_account.lookupUser(${accountid})
 

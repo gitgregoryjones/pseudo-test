@@ -64,7 +64,7 @@ module.exports.processLine = function(line){
 			*/
 
 			//console.log("Running " + line.trim());
-			console.log("Evaluating " + group[1] )
+			//console.log("Evaluating " + group[1] )
 
 			var coke = false;
 			
@@ -73,10 +73,10 @@ module.exports.processLine = function(line){
 			//console.log("Coke is " + coke)
 
 			if(coke == true){
-			
+				console.log(`Test passed the following condition ==> [${group[1]}]`);
 			} else {
 				
-				throw new Error("Test failed the following condition ==> ["  + group[1] + "] is not true")
+				throw new Error(`Test failed the following condition ==> [${group[1]}] is not true`)
 				
 			}
 		}
