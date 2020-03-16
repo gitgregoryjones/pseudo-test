@@ -1,7 +1,7 @@
 
 var Sync = require('sync');
 
-equals = require('./equals')
+equals = require('./equals');
 
 var expressions = [
 {test:/^\s*TEST\s+(.*)$/i,"label":"Testing User Expression"
@@ -11,8 +11,9 @@ Sync(function(){
 
 var result = ""
 
-
 module.exports.processLine = function(line){
+
+	console.log(`I am evaluating the expression ${line}`)
 
 	isEquals = /\s*TEST\s*(.+)\s+(EQUALS|IS LIKE)\s+(.+)?$/g.exec(line);
 
